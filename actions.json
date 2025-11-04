@@ -3,8 +3,8 @@
     {
       "id": 1,
       "action": "MOVE_TO",
-      "x": 100,
-      "y": 100,
+      "x": 300,
+      "y": 300,
       "duration": 1
     },
     {
@@ -21,7 +21,7 @@
     },
     {
       "action": "TYPE",
-      "text": "Hello, world!",
+      "text": "{input}",
       "interval": 0.1
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "action": "WAIT_UNTIL_COLOR",
-      "color": "(0, 0, 255)",
+      "color": "(15,16,18)",
       "check_interval": 1,
       "check_x": 100,
       "check_y": 100

@@ -18,12 +18,14 @@ def move_to(action):
     duration = action.get("duration", 0)
     global_x = x
     global_y = y
+    print(f"[INFO] Moving to {x}, {y}")
     pyautogui.moveTo(global_x, global_y, duration=duration)
 
 def click(action):
     button = action.get("button", "left")
     clicks = action.get("clicks", 1)
     interval = action.get("interval", 0)
+    print(f"[INFO] Clicking {button}, {clicks} times.")
     pyautogui.click(button=button, clicks=clicks, interval=interval)
 
 def type_text(action):
@@ -32,6 +34,7 @@ def type_text(action):
         pass
     text = action.get("text")
     interval = action.get("interval", 0)
+    print(f"[INFO] Typing {text}.")
     pyautogui.typewrite(text, interval=interval)
 
 def wait_secs(action):
@@ -39,13 +42,15 @@ def wait_secs(action):
         print("[ERROR] seconds field doesn't exists in wait_secs action")
         pass
     seconds = action.get("seconds")
+    print(f"[INFO] Waiting {seconds} seconds.")
     time.sleep(seconds)
 
 def wait_until_color(action):
-    if not "equals" in action:
+    if not "color" in action:
         print("[ERROR] no condition in wait_until action")
-        pass
+        return
     while True:
+        print("[INFO] checking color...")
         if not "check_x" in action or not "check_y" in action or not "color" in action or not "check_interval" in action:
             print("[ERROR] not enought information to perform checking")
             pass
@@ -54,11 +59,11 @@ def wait_until_color(action):
         color = action.get("color")
         check_interval = action.get("check_interval")
 
-        if not pyautogui.pixelMatchesColor(check_x, check_y, color):
+        if not pyautogui.pixelMatchesColor(check_x, check_y, eval(color)):
             time.sleep(check_interval)
         else: break
 
-actions = {
+actions_set = {
     "MOVE_TO": move_to,
     "CLICK": click,
     "TYPE": type_text,
@@ -69,8 +74,7 @@ actions = {
 def iterate_actions(actions, input_value=None):
     for action in actions:
         if input_value is not None and isinstance(action, dict):
-            action = {k: str(v).replace('{input}', str(input_value)) for k, v in action.items()}
-        
+            action = {k: (str(v).replace('{input}', str(input_value)) if isinstance(v, str) and '{input}' in v else v) for k, v in action.items()}
         action_type = action.get("action")
         skip = action.get("skip")
         if skip:
@@ -78,7 +82,7 @@ def iterate_actions(actions, input_value=None):
         if not "action" in action:
             print("[ERROR] no action type on action")
             continue
-        actions[action_type](action)
+        actions_set[str(action_type)](action)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Executa automação com entradas de um arquivo.')
