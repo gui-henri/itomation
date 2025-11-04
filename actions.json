@@ -1,0 +1,39 @@
+{
+  "actions": [
+    {
+      "id": 1,
+      "action": "MOVE_TO",
+      "x": 100,
+      "y": 100,
+      "duration": 1
+    },
+    {
+      "action": "MOVE_TO",
+      "x": 100,
+      "y": 100,
+      "duration": 1,
+      "skip": true
+    },
+    {
+      "action": "CLICK",
+      "button": "left",
+      "clicks": 1
+    },
+    {
+      "action": "TYPE",
+      "text": "Hello, world!",
+      "interval": 0.1
+    },
+    {
+      "action": "WAIT_SECS",
+      "seconds": 2
+    },
+    {
+      "action": "WAIT_UNTIL_COLOR",
+      "color": "(0, 0, 255)",
+      "check_interval": 1,
+      "check_x": 100,
+      "check_y": 100
+    }
+  ]
+}

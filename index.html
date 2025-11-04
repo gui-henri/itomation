@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Action Creator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>Action Creator</h1>
+    <div id="content">
+        <div id="form-container">
+            <select id="action-type">
+                <option value="MOVE TO">MOVE_TO</option>
+                <option value="CLICK">CLICK</option>
+                <option value="TYPE">TYPE</option>
+                <option value="WAIT_SECS">WAIT SECONDS</option>
+                <option value="WAIT_UNTIL_COLOR">WAIT UNTIL COLOR</option>
+            </select>
+            <input type="file" id="image-loader" name="image-loader">
+            <input type="text" id="text-to-type" placeholder="Text to type" style="display:none;">
+            <input type="number" id="wait-time" placeholder="Time to wait (ms)" style="display:none;">
+            <button id="add-action">Add Action</button>
+            <button id="generate-json">Generate JSON</button>
+        </div>
+        <div id="image-container">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

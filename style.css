@@ -1,0 +1,29 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+}
+
+#form-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+#image-container {
+    border: 1px solid black;
+}
+
+canvas {
+    cursor: crosshair;
+}
+
+input, select, button {
+    margin-top: 10px;
+}
