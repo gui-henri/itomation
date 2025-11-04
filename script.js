@@ -2,8 +2,10 @@ const actionType = document.getElementById('action-type');
 const imageLoader = document.getElementById('image-loader');
 const textToType = document.getElementById('text-to-type');
 const waitTime = document.getElementById('wait-time');
+const duration = document.getElementById('duration-selection');
 const addActionButton = document.getElementById('add-action');
 const generateJsonButton = document.getElementById('generate-json');
+const jsonResult = document.getElementById('json-result');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -45,29 +47,40 @@ actionType.addEventListener('change', e => {
     if (e.target.value === 'TYPE') {
         textToType.style.display = 'block';
         waitTime.style.display = 'none';
+        duration.style.display = "block";
+        imageLoader.style.display = "none";
     } else if (e.target.value === 'WAIT_SECS') {
         textToType.style.display = 'none';
         waitTime.style.display = 'block';
+        duration.style.display = "none";
+        imageLoader.style.display = "none";
+    } else if (e.target.value === 'MOVE_TO') {
+        imageLoader.style.display = "block";
+        duration.style.display = "block";
     } else {
+        imageLoader.style.display = "none";
         textToType.style.display = 'none';
         waitTime.style.display = 'none';
+        duration.style.display = "none";
     }
 });
 
 addActionButton.addEventListener('click', () => {
     const action = { action: actionType.value };
-    if (action.type === 'MOVE_TO') {
+    if (action.action === 'MOVE_TO') {
         if (coords) {
-            action.coords = coords;
+            action.x = parseInt(coords.x);
+            action.y = parseInt(coords.y);
+            action.duration = 1
         } else {
             alert('Please select coordinates on the image.');
             return;
         }
     }
-    if (action.type === 'TYPE') {
+    if (action.action === 'TYPE') {
         action.text = textToType.value;
     }
-    if (action.type === 'WAIT') {
+    if (action.action === 'WAIT') {
         action.seconds = parseInt(waitTime.value);
     }
 
@@ -83,10 +96,13 @@ addActionButton.addEventListener('click', () => {
     waitTime.value = '';
     canvas.width = 100;
     canvas.height = 100;
+    const json = JSON.stringify(actions, null, 2);
+    jsonResult.innerHTML = json
 });
 
 generateJsonButton.addEventListener('click', () => {
     const json = JSON.stringify(actions, null, 2);
+    console.log(json)
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
