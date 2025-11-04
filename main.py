@@ -1,6 +1,7 @@
 import pyautogui
 import json
 import time
+import argparse
 
 global_x = 0
 global_y = 0
@@ -65,8 +66,11 @@ actions = {
     "WAIT_UNTIL_COLOR": wait_until_color
 }
 
-def iterate_actions(actions):
+def iterate_actions(actions, input_value=None):
     for action in actions:
+        if input_value is not None and isinstance(action, dict):
+            action = {k: str(v).replace('{input}', str(input_value)) for k, v in action.items()}
+        
         action_type = action.get("action")
         skip = action.get("skip")
         if skip:
@@ -77,14 +81,41 @@ def iterate_actions(actions):
         actions[action_type](action)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Executa automação com entradas de um arquivo.')
+    parser.add_argument('--input', '-i', type=str, help='Caminho para o arquivo de entrada')
+    parser.add_argument('--actions', '-a', type=str, default='actions.json', help='Caminho para o arquivo de ações (default: actions.json)')
+    args = parser.parse_args()
+
     try:
-        with open("actions.json", "r") as f:
+        with open(args.actions, "r") as f:
             actions_data = json.load(f)
-            if "actions" in actions_data:
-                iterate_actions(actions_data["actions"])
-            else:
+            if not "actions" in actions_data:
                 print("[Error] The JSON file must contain an 'actions' array.")
+                exit(1)
+        
+        if args.input is None:
+            print("Nenhum arquivo de entrada fornecido. Executando automação sem inputs.")
+            iterate_actions(actions_data["actions"], None)
+        else:
+            try:
+                with open(args.input, "r") as input_file:
+                    lines = [line.strip() for line in input_file if line.strip()]
+                    
+                if not lines:
+                    print("[Warning] Arquivo de entrada vazio.")
+                    exit(0)
+                    
+                for line in lines:
+                    print(f"\n--- Executando automação para entrada: {line} ---")
+                    iterate_actions(actions_data["actions"], line)
+                    
+            except FileNotFoundError:
+                print(f"[Error] Arquivo de entrada não encontrado: {args.input}")
+                exit(1)
+            
     except FileNotFoundError:
-        print("[Error] actions.json not found.")
+        print(f"[Error] Arquivo de ações não encontrado: {args.actions}")
+        exit(1)
     except json.JSONDecodeError:
-        print("[Error] Invalid JSON format in actions.json.")
+        print(f"[Error] Formato JSON inválido em: {args.actions}")
+        exit(1)
