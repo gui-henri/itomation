@@ -69,12 +69,8 @@
       "clicks": 1
     },
     {
-      "action": "WAIT_SECS",
-      "seconds": 3
-    },
-    {
       "action": "SEARCH_SCREEN_COLOR",
-      "color": "(64,97,132)",
+      "color": "(83,36,14)",
       "check_interval": 1
     }
   ]
