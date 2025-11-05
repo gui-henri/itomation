@@ -18,9 +18,17 @@
                 <option value="WAIT_UNTIL_COLOR">WAIT UNTIL COLOR</option>
             </select>
             <input type="file" id="image-loader" name="image-loader">
+            <select id="click-options" style="display: none;">
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+                <option value="middle">Middle</option>
+            </select>
+            <input type="number" id="click-amount" placeholder="Click amount" style="display:none;">
             <input type="text" id="text-to-type" placeholder="Text to type" style="display:none;">
             <input type="number" id="duration-selection" placeholder="Duration (seconds)" style="display:block;">
+            <input type="number" id="interval" placeholder="Interval. Ex: 0.5, 1.4" style="display:none;">
             <input type="number" id="wait-time" placeholder="Time to wait (seconds)" style="display:none;">
+            <input type="number" id="check-interval" placeholder="Interval. Ex: 0.5, 1.4" style="display:none;">
             <button id="add-action">Add Action</button>
             <button id="generate-json">Generate JSON</button>
         </div>
