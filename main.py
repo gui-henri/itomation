@@ -7,19 +7,31 @@ global_x = 0
 global_y = 0
 
 def move_to(action):
-    if not "x" in action:
-        print("[ERROR] X field doesn't exists in move_to action")
-        pass
-    x = action.get("x")
-    if not "y" in action:
-        print("[ERROR] Y field doesn't exists in move_to action")
-        pass
-    y = action.get("y")
-    duration = action.get("duration", 0)
-    global_x = x
-    global_y = y
-    print(f"[INFO] Moving to {x}, {y}")
+    if not "{global}" in action:
+        if not "x" in action:
+            print("[ERROR] X field doesn't exists in move_to action")
+            pass
+        x = action.get("x")
+        if not "y" in action:
+            print("[ERROR] Y field doesn't exists in move_to action")
+            pass
+        y = action.get("y")
+        duration = action.get("duration", 0)
+        global_x = x
+        global_y = y
+        print(f"[INFO] Moving to {x}, {y}")
     pyautogui.moveTo(global_x, global_y, duration=duration)
+
+def search_color(action):
+    if not "color" in action:
+        print("[ERROR] no color to search")
+        return
+    color = eval(action.get("color"))
+    s = pyautogui.screenshot()
+    for x in range(s.width):
+        for y in range(s.height):
+            if s.getpixel((x, y)) == color:
+                pyautogui.click(x, y)    
 
 def click(action):
     button = action.get("button", "left")
@@ -68,7 +80,8 @@ actions_set = {
     "CLICK": click,
     "TYPE": type_text,
     "WAIT_SECS": wait_secs,
-    "WAIT_UNTIL_COLOR": wait_until_color
+    "WAIT_UNTIL_COLOR": wait_until_color,
+    "SEARCH_SCREEN_COLOR": search_color
 }
 
 def iterate_actions(actions, input_value=None):

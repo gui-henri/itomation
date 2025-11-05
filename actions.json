@@ -1,18 +1,10 @@
 {
   "actions": [
     {
-      "id": 1,
       "action": "MOVE_TO",
-      "x": 300,
-      "y": 300,
+      "x": 780,
+      "y": 15,
       "duration": 1
-    },
-    {
-      "action": "MOVE_TO",
-      "x": 100,
-      "y": 100,
-      "duration": 1,
-      "skip": true
     },
     {
       "action": "CLICK",
@@ -21,19 +13,76 @@
     },
     {
       "action": "TYPE",
-      "text": "{input}",
+      "text": "youtube.com",
       "interval": 0.1
     },
     {
-      "action": "WAIT_SECS",
-      "seconds": 2
+      "action": "MOVE_TO",
+      "x": 780,
+      "y": 90,
+      "duration": 1
     },
     {
       "action": "WAIT_UNTIL_COLOR",
-      "color": "(15,16,18)",
-      "check_interval": 1,
-      "check_x": 100,
-      "check_y": 100
+      "color": "(255,252,253)",
+      "check_x": 106,
+      "check_y": 54,
+      "check_interval": 1
+    },
+    {
+      "action": "CLICK",
+      "button": "left",
+      "clicks": 1
+    },
+    {
+      "action": "WAIT_UNTIL_COLOR",
+      "color": "(255,0,51)",
+      "check_x": 94,
+      "check_y": 108,
+      "check_interval": 1
+    },
+    {
+      "action": "MOVE_TO",
+      "x": 397,
+      "y": 102,
+      "duration": 1
+    },
+    {
+      "action": "CLICK",
+      "button": "left",
+      "clicks": 1
+    },
+    {
+      "action": "TYPE",
+      "text": "never gonna give you up",
+      "interval": 0.1
+    },
+    {
+      "action": "MOVE_TO",
+      "x": 927,
+      "y": 103,
+      "duration": 1
+    },
+    {
+      "action": "CLICK",
+      "button": "left",
+      "clicks": 1
+    },
+    {
+      "action": "SEARCH_SCREEN_COLOR",
+      "color": "(64,97,132)",
+      "check_interval": 1
+    },
+    {
+      "action": "MOVE_TO",
+      "x": 487,
+      "y": 508,
+      "duration": 1
+    },
+    {
+      "action": "CLICK",
+      "button": "left",
+      "clicks": 1
     }
   ]
 }
