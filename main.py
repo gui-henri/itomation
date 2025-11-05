@@ -31,7 +31,9 @@ def search_color(action):
     for x in range(s.width):
         for y in range(s.height):
             if s.getpixel((x, y)) == color:
-                pyautogui.click(x, y)    
+                print("found color")
+                pyautogui.click(x, y)
+                return   
 
 def click(action):
     button = action.get("button", "left")
