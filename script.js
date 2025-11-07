@@ -91,7 +91,7 @@ addActionButton.addEventListener('click', () => {
     }
     if (action.action === 'TYPE') {
         action.text = textToType.value;
-        action.interval = parseFloat(interval.value)
+        action.interval = parseFloat(interval.value) === 0 ? parseFloat(interval.value) : 1.0
     }
     if (action.action === "CLICK") {
         action.button = clickOptions.value
