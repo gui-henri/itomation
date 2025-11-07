@@ -27,16 +27,21 @@ def search_color(action):
         print("[ERROR] no color to search")
         return
     color = eval(action.get("color"))
+
+    check = True
+    if not "check_interval" in action:
+        check = False
     check_interval = action.get("check_interval")
-    s = pyautogui.screenshot()
-    while True:
+    
+    while check:
+        s = pyautogui.screenshot()
         for x in range(s.width):
             for y in range(s.height):
                 if s.getpixel((x, y)) == color:
                     print("found color")
                     pyautogui.click(x, y)
                     return
-        print(f"[INFO] sleeping for {check_interval}")
+        print(f"[INFO] sleeping for {check_interval} seconds")
         time.sleep(check_interval)
 
 def click(action):

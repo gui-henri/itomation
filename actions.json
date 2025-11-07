@@ -70,7 +70,7 @@
     },
     {
       "action": "SEARCH_SCREEN_COLOR",
-      "color": "(83,36,14)",
+      "color": "(109, 33, 0)",
       "check_interval": 1
     }
   ]
