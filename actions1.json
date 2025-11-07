@@ -1,0 +1,18 @@
+{
+  "actions": [
+    {
+        "action": "WAIT_SECS",
+        "seconds": 2
+    },
+    {
+      "action": "TYPE",
+      "text": "hi, hello {input.hello}. ",
+      "interval": 0.1
+    },
+    {
+      "action": "TYPE",
+      "text": "I'm {input.age} old.",
+      "interval": 0.1
+    }
+  ]
+}

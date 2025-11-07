@@ -2,6 +2,7 @@ import pyautogui
 import json
 import time
 import argparse
+import re
 
 global_x = 0
 global_y = 0
@@ -96,9 +97,26 @@ actions_set = {
 }
 
 def iterate_actions(actions, input_value=None):
+    if input_value is not None:
+        try:
+            input_dict = json.loads(input_value)
+        except json.JSONDecodeError:
+            print("[ERROR] Invalid JSON input:", input_value)
+            input_dict = {}
+    else:
+        input_dict = {}
+    
     for action in actions:
         if input_value is not None and isinstance(action, dict):
-            action = {k: (str(v).replace('{input}', str(input_value)) if isinstance(v, str) and '{input}' in v else v) for k, v in action.items()}
+            def replace_placeholders(text):
+                def repl(match):
+                    key = match.group(1)
+                    return str(input_dict.get(key, f"{{input.{key}}}"))
+                return re.sub(r'\{input\.([^{}]+)\}', repl, text)
+
+            action = {k: (replace_placeholders(v) if isinstance(v, str) else v)
+                      for k, v in action.items()}
+        
         action_type = action.get("action")
         skip = action.get("skip")
         if skip:
