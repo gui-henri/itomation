@@ -113,6 +113,11 @@ addActionButton.addEventListener('click', () => {
         }
     }
 
+    if (action.action === "SEARCH_SCREEN_COLOR") {
+        action.color = `(${pixel[0]},${pixel[1]},${pixel[2]})`;
+        action.check_interval = parseFloat(checkInterval.value) === 0 ? parseFloat(checkInterval.value) : 1;
+    }
+
     actions.push(action);
     alert('Action added!');
     // Clear for next action
